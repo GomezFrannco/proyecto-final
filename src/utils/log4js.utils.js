@@ -6,7 +6,7 @@ log4js.configure({
     file: { type: "file", filename: "./logs/info.log"}
   },
   categories: {
-    default: { appenders: ["console"], level: "info" },
+    default: { appenders: ["console"], level: "debug" },
     fileLogs: { appenders: ["file"], level: "info" },
   },
 });
