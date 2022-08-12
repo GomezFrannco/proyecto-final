@@ -12,7 +12,9 @@ class MongoDBConnection {
   }
   async connectToMongo() {
     try {
-      await this.db.connect(this.config.uri)
+      await this.db.connect(this.config.uri, {
+        dbName: this.config.db,
+      })
       this.status = true;
       log.console.debug("💾 connected to MongoAtlas");
       return;
