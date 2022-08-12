@@ -5,7 +5,8 @@ module.exports = {
     port: process.env.PORT
   },
   mongodb: {
-    uri: process.env.MONGO_URI
+    uri: process.env.MONGO_URI,
+    db: process.env.DB_NAME
   },
   mailer: {
     port: process.env.MAILER_PORT,
