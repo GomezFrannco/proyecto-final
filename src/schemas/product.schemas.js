@@ -8,6 +8,15 @@ const createProductSchema = object({
   stock: number().positive("It can't be a negative number").required("Stock is required"),
 });
 
+const updateProductSchema = object({
+  productName: string(),
+  category: string(),
+  description: string().min(10).max(180),
+  price: number().positive("It can't be a negative number"),
+  stock: number().positive("It can't be a negative number"),
+})
+
 module.exports = {
   createProductSchema,
+  updateProductSchema,
 };
