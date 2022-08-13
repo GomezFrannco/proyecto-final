@@ -1,5 +1,6 @@
 const express = require("express");
 const config = require("config");
+const { log } = require("./utils/log4js.utils");
 
 class App {
   constructor() {
@@ -20,7 +21,7 @@ class App {
   }
   listen() {
     this.app.listen(this.app.get("port"), () => {
-      console.log("🚀 listening on port:", Number(this.app.get("port")));
+      log.console.info(`🚀 listening on port: ${this.app.get("port")}`);
     });
   }
 }
