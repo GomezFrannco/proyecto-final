@@ -1,6 +1,8 @@
 const express = require("express");
 const config = require("config");
 const { log } = require("./utils/log4js.utils");
+const usersRouter = require('./routes/user.routes');
+const productsRouter = require('./routes/products.routes');
 
 class App {
   constructor() {
@@ -18,6 +20,8 @@ class App {
     this.app.use(express.urlencoded({ extended: true }));
   }
   routes() {
+    this.app.use(usersRouter);
+    this.app.use(productsRouter);
   }
   listen() {
     this.app.listen(this.app.get("port"), () => {
