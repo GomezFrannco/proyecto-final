@@ -79,9 +79,40 @@ class ProductGetHandlers {
   }
 }
 
+class ProductPutHandlers {
+  async updateProductHandler(req, res) {
+    const body = req.body;
+    const { id } = req.params;
+    try {
+      await updateProductSchema.validate(body, {
+        strict: true,
+        abortEarly: true,
+      });
+      if (req.file) {
+        body.thumbnail = `uploads/${req.file.filename}`;
+      }
+      await new MongoProductDAO().updateProduct(id, body);
+      return res.status(201).json({
+        Response: {
+          Message: 'Product succesfully updated',
+        },
+      });
+    } catch (error) {
+      log.file.error(error.message);
+      log.console.debug(error.message);
+      return res.status(500).json({
+        Error: {
+          Message: error.message,
+        },
+      });
+    }
+  }
+}
+
 module.exports = {
   handlers: {
     post: new ProductPostHandlers(),
     get: new ProductGetHandlers(),
+    put: new ProductPutHandlers(),
   },
 };
