@@ -5,7 +5,7 @@ const { log } = require("./utils/log4js.utils");
 class App {
   constructor() {
     this.app = express();
-    this.port = config.get("port");
+    this.port = config.get("server").port;
     this.settings();
     this.middlewares();
     this.routes();
