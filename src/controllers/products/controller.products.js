@@ -109,10 +109,33 @@ class ProductPutHandlers {
   }
 }
 
+class ProductDeleteHandlers {
+  async deleteProductHandler (req, res) {
+    const { id } = req.params;
+    try {
+      await new MongoProductDAO().deleteProduct(id);
+      return res.status(204).json({
+        Response: {
+          Message: "Product successfully deleted",
+        },
+      })
+    } catch (error) {
+      log.file.error(error.message);
+      log.console.debug(error.message);
+      return res.status(500).json({
+        Error: {
+          Message: error.message,
+        },
+      });
+    }
+  }
+}
+
 module.exports = {
   handlers: {
     post: new ProductPostHandlers(),
     get: new ProductGetHandlers(),
     put: new ProductPutHandlers(),
+    delete: new ProductDeleteHandlers(),
   },
 };
