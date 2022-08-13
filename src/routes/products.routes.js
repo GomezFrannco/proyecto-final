@@ -5,4 +5,6 @@ const router = Router();
 
 router.post('/api/products', handlers.post.createProductHandler);
 
+router.get('/api/products', handlers.get.getAllProductsHandler);
+
 module.exports = router;
