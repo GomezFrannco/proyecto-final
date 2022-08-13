@@ -7,9 +7,10 @@ class UserPostHandlers {
     const body = req.body;
     try {
       await createUserSchema.validate(body, {
+        strict: true,
         abortEarly: true,
       });
-      await new MongoUserDAO().createUser(body)
+      await new MongoUserDAO().createUser(body);
       return res.status(201).json({
         Response: {
           Message: "User successfully created!",
@@ -37,10 +38,7 @@ class UserPostHandlers {
   }
   async verifyUserHandler(req, res) {
     try {
-      
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 }
 
