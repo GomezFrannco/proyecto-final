@@ -121,7 +121,7 @@ class ProductDeleteHandlers {
     const { id } = req.params;
     try {
       await new MongoProductDAO().deleteProduct(id);
-      return res.status(204).json({
+      return res.status(200).json({
         Response: {
           Message: "Product successfully deleted",
         },
