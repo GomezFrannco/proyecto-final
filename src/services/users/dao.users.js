@@ -1,4 +1,4 @@
-const UserModel = require("../../models/user.models");
+const { UserModel } = require("../../models/user.models");
 
 class MongoUserDAO { // Users CRUD with MongoDB
   constructor() {

@@ -45,4 +45,7 @@ userModel.pre("save", async function () {
 
 const UserModel = new model("Users", userModel);
 
-module.exports = UserModel;
+module.exports = {
+  userModel,
+  UserModel,
+};

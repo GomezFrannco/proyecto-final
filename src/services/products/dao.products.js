@@ -1,4 +1,4 @@
-const ProductModel = require("../../models/product.models");
+const { ProductModel } = require("../../models/product.models");
 
 class MongoProductDAO { // Product CRUD with mongoDB
   constructor() {
