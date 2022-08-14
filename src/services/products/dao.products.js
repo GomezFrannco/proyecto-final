@@ -26,7 +26,7 @@ class MongoProductDAO { // Product CRUD with mongoDB
     });
   }
   async deleteProduct(id) {
-    return await findByIdAndDelete(id);
+    return await this.model.findByIdAndDelete(id);
   }
 }
 
