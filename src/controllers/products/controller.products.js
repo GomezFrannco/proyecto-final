@@ -37,17 +37,24 @@ class ProductGetHandlers {
     const { id } = req.params;
     try {
       const product  = await new MongoProductDAO().getProductById(id);
-      const dto = new ProductDTO();
-      dto.setPicture(product.tumbnail);
-      dto.setName(product.productName);
-      dto.setDescription(product.description);
-      dto.setPrice(product.price);
-      dto.setStock(product.stock);
+      if (product) {
+        const dto = new ProductDTO();
+        dto.setPicture(product.thumbnail);
+        dto.setName(product.productName);
+        dto.setDescription(product.description);
+        dto.setPrice(product.price);
+        dto.setStock(product.stock);
+        return res.status(200).json({
+          Response: {
+            Product: dto,
+          },
+        });
+      }
       return res.status(200).json({
         Response: {
-          Product: dto,
+          Message: "Product not found",
         },
-      });
+      })
     } catch (error) {
       log.file.error(error.message);
       log.console.debug(error.message);
