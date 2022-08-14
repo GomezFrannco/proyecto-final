@@ -1,7 +1,7 @@
 class ProductDTO {
   constructor() {
-    this.thumbnail = undefined;
     this.productName = undefined;
+    this.thumbnail = undefined;
     this.description = undefined;
     this.price = undefined;
     this.stock = undefined;
