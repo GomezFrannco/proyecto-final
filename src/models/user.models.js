@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const argon2 = require("argon2");
+const { log } = require("../utils/log4js.utils");
 
 const userModel = new Schema(
   {
@@ -42,6 +43,17 @@ userModel.pre("save", async function () {
   this.password = hash;
   return;
 });
+
+// Metodo para validar la contraseña del
+// usuario. El mismo será usado en un controlador
+userModel.method("validatePassword", async function(candidatePassword) {
+  try {
+    return await argon2.verify(this.password, candidatePassword);
+  } catch (error) {
+    log.console.warn(error.message, "Validation has been failed");
+    return false
+  }
+})
 
 const UserModel = new model("Users", userModel);
 
