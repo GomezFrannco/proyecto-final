@@ -1,4 +1,3 @@
-const { createProductSchema, updateProductSchema } = require("../../schemas/product.schemas");
 const MongoProductDAO = require("../../services/products/dao.products");
 const ProductDTO = require("../../services/products/dto.products");
 const { log } = require("../../utils/log4js.utils");
@@ -7,10 +6,6 @@ class ProductPostHandlers {
   async createProductHandler(req, res) {
     const body = req.body;
     try {
-      await createProductSchema.validate(body, {
-        strict: true,
-        abortEarly: true,
-      });
       if (req.file) {
         body.thumbnail = `uploads/${req.file.filename}`;
       }
@@ -91,10 +86,6 @@ class ProductPutHandlers {
     const body = req.body;
     const { id } = req.params;
     try {
-      await updateProductSchema.validate(body, {
-        strict: true,
-        abortEarly: true,
-      });
       if (req.file) {
         body.thumbnail = `uploads/${req.file.filename}`;
       }

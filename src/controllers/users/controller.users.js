@@ -1,4 +1,3 @@
-const { createUserSchema } = require("../../schemas/user.schemas");
 const MongoUserDAO = require("../../services/users/dao.users");
 const { log } = require("../../utils/log4js.utils");
 
@@ -6,10 +5,6 @@ class UserPostHandlers {
   async createUserHandler(req, res) {
     const body = req.body;
     try {
-      await createUserSchema.validate(body, {
-        strict: true,
-        abortEarly: true,
-      });
       await new MongoUserDAO().createUser(body);
       return res.status(201).json({
         Response: {
@@ -21,14 +16,6 @@ class UserPostHandlers {
         return res.status(400).json({
           Error: {
             Message: "Email is already in use!",
-          },
-        });
-      }
-      if (error.errors.length > 0) {
-        return res.status(400).json({
-          Error: {
-            Path: error?.path,
-            Message: error?.message,
           },
         });
       }
