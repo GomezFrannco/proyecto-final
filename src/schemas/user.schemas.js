@@ -6,8 +6,19 @@ const createUserSchema = object({
   confirmPassword: string().oneOf([ref('password')], "Passwords don't match"),
   firstName: string().min(3).max(15).required("Name is required"),
   lastName: string().min(3).max(15).required("Surname is required"),
-  });
+});
+
+const forgotPasswordSchema = object({
+  email: string().email("Must be a valid email").required("Email is required"),
+});
+
+const resetPasswordSchema = object({
+  password: string().min(6, "Must be at least 6 characters").required("Password is required"),
+  confirmPassword: string().oneOf([ref('password')], "Passwords don't match"),
+});
 
 module.exports = {
-  createUserSchema
-}
+  createUserSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+};
