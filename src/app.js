@@ -1,7 +1,9 @@
 const express = require("express");
 const config = require("config");
 const { log } = require("./utils/log4js.utils");
-const routes = require('./routes/index.routes.js');
+const apiRoutes = require('./routes/index.routes.js');
+const clientRoutes = require("../client/routes/index.routes")
+const deserializeUser = require("./middlewares/deserialize.middlewares");
 
 class App {
   constructor() {
@@ -13,13 +15,18 @@ class App {
   }
   settings() {
     this.app.set("port", this.port);
+    this.app.set("views", "./client/views");
+    this.app.set("view engine", "ejs");
   }
   middlewares() {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.static(__dirname + "/public"))
+    this.app.use(deserializeUser);
   }
   routes() {
-    this.app.use(routes)
+    this.app.use(apiRoutes);
+    this.app.use(clientRoutes)
   }
   listen() {
     this.app.listen(this.app.get("port"), () => {
