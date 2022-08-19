@@ -28,7 +28,7 @@ const productModel = new Schema(
     description: {
       type: String,
       trim: true,
-      default: "This product doesn't have any description",
+      default: ()=> "This product doesn't have any description",
     },
     price: {
       type: Number,
