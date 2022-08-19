@@ -1,3 +1,4 @@
+const MongoCartDAO = require("../../services/cart/dao.cart");
 const MongoUserDAO = require("../../services/users/dao.users");
 const { log } = require("../../utils/log4js.utils");
 
@@ -5,7 +6,9 @@ class UserPostHandlers {
   async createUserHandler(req, res) {
     const body = req.body;
     try {
-      await new MongoUserDAO().createUser(body);
+      const user = await new MongoUserDAO().createUser(body);
+      // Le asignamos un carrito al usuario.
+      await new MongoCartDAO().createCart(user._id);
       return res.status(201).json({
         Response: {
           Message: "User successfully created!",
@@ -29,8 +32,17 @@ class UserPostHandlers {
   }
 }
 
+class GetUsersHandlers {
+  async getCurrentUserHandler(_req, res) {
+    return res.status(200).json({
+      Response: res.locals.user
+    })
+  }
+}
+
 module.exports = {
   handlers: {
     post: new UserPostHandlers(),
+    get: new GetUsersHandlers(),
   },
 };
