@@ -8,7 +8,7 @@ class MongoUserDAO { // Users CRUD with MongoDB
     return await this.model.create(input);
   }
   async getAllUsers() {
-    const users = await this.model.findOne();
+    const users = await this.model.find();
     return users; 
   }
   async getUser(id) {
