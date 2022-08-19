@@ -2,7 +2,7 @@ require('../src/utils/dotenv.utils.js');
 
 module.exports = {
   server: {
-    port: process.env.PORT
+    port: process.env.PORT,
   },
   mongodb: {
     uri: process.env.MONGO_URI,
@@ -13,4 +13,8 @@ module.exports = {
     user: process.env.MAILER_USER,
     pass: process.env.MAILER_PASS
   },
+  accessTokenPrivateKey: process.env.ACCESS_PRIVATE_KEY,
+  refreshTokenPrivateKey: process.env.REFRESH_PRIVATE_KEY,
+  accessTokenPublicKey: process.env.ACCESS_PUBLIC_KEY,
+  refreshTokenPublicKey: process.env.REFRESH_PUBLIC_KEY,
 }
