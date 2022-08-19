@@ -1,3 +1,4 @@
+// Middleware donde validamos un esquema de Yup 
 const validateResource = (schema) => async (req, res, next) => {
   const resource = req.body;
   try {
