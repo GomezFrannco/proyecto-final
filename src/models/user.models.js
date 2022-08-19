@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const argon2 = require("argon2");
 const { log } = require("../utils/log4js.utils");
+const { nanoid } = require("nanoid");
 
 const userModel = new Schema(
   {
@@ -10,6 +11,7 @@ const userModel = new Schema(
       lowercase: true,
       required: true,
       unique: true,
+      sparse: true,
     },
     firstName: {
       type: String,
@@ -25,6 +27,18 @@ const userModel = new Schema(
       type: String,
       required: true,
       minLength: 6,
+    },
+    verificationCode: {
+      type: String,
+      unique: true,
+      default: () => nanoid(),
+    },
+    passwordResetCode:  {
+      type: String | null,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
     },
   },
   {
@@ -48,6 +62,8 @@ userModel.pre("save", async function () {
 // usuario. El mismo será usado en un controlador
 userModel.method("validatePassword", async function(candidatePassword) {
   try {
+    // Verificamos si la contraseña del
+    // usuario coincide con la guardada anteriormente
     return await argon2.verify(this.password, candidatePassword);
   } catch (error) {
     log.console.warn(error.message, "Validation has been failed");
@@ -55,9 +71,19 @@ userModel.method("validatePassword", async function(candidatePassword) {
   }
 })
 
+// Definimos un indice
+userModel.index({email: 1});
+
+// Campos que no van a ser mostrados
+const privateFields = [
+  "password",
+  "__v",
+]
+
 const UserModel = new model("Users", userModel);
 
 module.exports = {
   userModel,
   UserModel,
+  privateFields,
 };
