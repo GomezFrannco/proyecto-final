@@ -8,10 +8,10 @@ const userModel = new Schema(
     email: {
       type: String,
       trim: true,
+      sparse: true,
       lowercase: true,
       required: true,
       unique: true,
-      sparse: true,
     },
     firstName: {
       type: String,
