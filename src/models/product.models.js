@@ -10,11 +10,10 @@ const productModel = new Schema(
     },
     productCode: {
       type: String,
-      unique: true,
       default: () => nanoid(6),
     },
     thumbnail: {
-      type: String,
+      type: [String],
       trim: true,
       required: true,
       default: "uploads/default-image.png",
@@ -22,7 +21,7 @@ const productModel = new Schema(
     category: {
       type: String,
       trim: true,
-      lowercase: true,
+      uppercase: true,
       required: true,
     },
     description: {
