@@ -11,17 +11,19 @@ class SessionPostHandlers {
       const newUser = new MongoUserDAO();
       const user = await newUser.getUserByEmail(email);
       if(!user) {
-        return res.status(404).json({
-          Response: {
+        return res.status(401).json({
+          Error: {
             Message: "Invalid email",
+            Code: 401
           },
         });
       };
       const isValid = await user.validatePassword(password);
       if(!isValid) {
         return res.status(401).json({
-          Response: {
+          Error: {
             Message: "Invalid password",
+            Code: 401
           },
         });
       };
