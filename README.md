@@ -13,6 +13,7 @@ Este proyecto trata sobre una tienda e-commerce ficticia pero 100% funcional. Cu
 * JWT
 * Argon2
 * EJS
+* Bootstrap
 
 # Patrones de diseño
 
