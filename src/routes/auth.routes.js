@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const { handlers } = require("../controllers/auth/controller.auth");
 const validateResource = require("../middlewares/validations.middlewares");
-const { createUserSchema } = require("../schemas/user.schemas");
+const { createSessionSchema } = require("../schemas/auth.schemas");
 
 const router = Router();
 
 // login route
-router.post("/api/sessions", validateResource(createUserSchema), handlers.post.createSessionHandler);
+router.post("/api/sessions", validateResource(createSessionSchema), handlers.post.createSessionHandler);
 
-router.post("/api/session/refresh", handlers.post.refreshAccessTokenHandler);
+router.post("/api/sessions/refresh", handlers.post.refreshAccessTokenHandler);
 
 module.exports = router;
