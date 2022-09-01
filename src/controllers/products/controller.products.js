@@ -65,9 +65,7 @@ class ProductGetHandlers {
       const products = await new MongoProductDAO().getAllProducts();
       // acá hay que retornar un DTO
       return res.status(200).json({
-        Response: {
-          Products: products,
-        },
+        products,
       });
     } catch (error) {
       log.file.error(error.message);
