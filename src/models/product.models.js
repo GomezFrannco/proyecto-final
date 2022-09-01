@@ -21,7 +21,7 @@ const productModel = new Schema(
     category: {
       type: String,
       trim: true,
-      lowercase: true,
+      uppercase: true,
       required: true,
     },
     description: {
