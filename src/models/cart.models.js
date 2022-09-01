@@ -6,7 +6,6 @@ const cartModel = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: () => userModel,
       required: true
     },
     products: {
