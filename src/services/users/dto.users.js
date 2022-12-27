@@ -1,19 +1,15 @@
-class UserDTO { // POJO
-  constructor() {
-    this.fullName = undefined;
-    this.email = undefined;
+class UserDTO {
+  constructor(User) {
+    this.id = User.id;
+    this.email = User.email;
+    this.name = User.firstName + " " + User.lastName;
   }
-  setFullName(username, lastname) {
-    this.fullName = username + " " + lastname;
-  }
-  getFullName() {
-    return this.fullName;
-  }
-  setEmail(email) {
-    this.email = email;
-  }
-  getEmail() {
-    return this.email;
+  toJSON() { // POJO
+    return {
+      id: this.id,
+      email: this.email,
+      name: this.name,
+    };
   }
 }
 
