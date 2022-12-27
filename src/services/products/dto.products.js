@@ -1,40 +1,25 @@
 class ProductDTO {
-  constructor() {
-    this.productName = undefined;
-    this.thumbnail = undefined;
-    this.description = undefined;
-    this.price = undefined;
-    this.stock = undefined;
+  constructor(Product) {
+    this.id = Product.id
+    this.name = Product.productName;
+    this.category = Product.category;
+    this.price = Product.price;
+    this.description = Product.description;
+    this.stock = Product.stock;
+    this.code = Product.productCode;
+    this.thumbnail = Product.thumbnail;
   }
-  setPicture(input) {
-    this.thumbnail = input;
-  }
-  getPicture() {
-  return this.thumbnail;    
-  }
-  setName(input) {
-    this.productName = input;
-  }
-  getName() {
-    return this.productName;
-  }
-  setDescription(input) {
-    this.description = input
-  }
-  getDescription() {
-    return this.description;
-  }
-  setPrice(input) {
-    this.price = input;
-  }
-  getPrice() {
-    return this.price;
-  }
-  setStock(input) {
-    this.stock = input;
-  }
-  getStock() {
-    return this.stock;
+  toJSON() { // POJO
+    return {
+      id: this.id,
+      name: this.name,
+      category: this.category,
+      price: this.price,
+      description: this.description,
+      stock: this.stock,
+      code: this.code,
+      thumbnail: this.thumbnail,
+    };
   }
 }
 
