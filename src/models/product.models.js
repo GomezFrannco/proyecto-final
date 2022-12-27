@@ -43,7 +43,7 @@ const productModel = new Schema(
   }
 );
 
-const ProductModel = new model("Products", productModel);
+const ProductModel = new model("Product", productModel);
 
 module.exports = {
   productModel,

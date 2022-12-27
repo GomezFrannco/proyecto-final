@@ -80,7 +80,7 @@ const privateFields = [
   "__v",
 ]
 
-const UserModel = new model("Users", userModel);
+const UserModel = new model("User", userModel);
 
 module.exports = {
   userModel,

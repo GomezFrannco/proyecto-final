@@ -17,6 +17,6 @@ const sessionModel = new Schema(
   }
 );
 
-const SessionModel = new model("Sessions", sessionModel);
+const SessionModel = new model("Session", sessionModel);
 
 module.exports = SessionModel;

@@ -18,6 +18,6 @@ const cartModel = new Schema(
   }
 );
 
-const CartModel = new model("Carts", cartModel);
+const CartModel = new model("Cart", cartModel);
 
 module.exports = CartModel;
