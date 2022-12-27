@@ -1,17 +1,18 @@
 const ProductDAO = require("../../services/products/dao.products");
 const { log } = require("../../utils/log4js.utils");
 
-class ProductPostHandlers {
-  async createProductHandler(req, res) {
-    const body = req.body;
+class PostProductHandler {
+  static async CreateProductHandler(req, res) {
+    const newProduct = req.body;
     try {
       if (req.file) {
         body.thumbnail = `uploads/${req.file.filename}`;
       }
-      await new MongoProductDAO().createProduct(body);
+      await ProductDAO.CreateProduct(newProduct);
       return res.status(201).json({
         Response: {
           Message: "Product successfully created",
+          product: newProduct,
         },
       });
     } catch (error) {
@@ -26,25 +27,19 @@ class ProductPostHandlers {
   }
 }
 
-class ProductGetHandlers {
-  async getProductByIdHandler(req, res) {
-    const { id } = req.params;
+class GetProductHandler {
+  static async GetProductByIdHandler(req, res) {
     try {
-      const product  = await new MongoProductDAO().getProductById(id);
-      if (product) {
-        const dto = new ProductDTO();
-        dto.setPicture(product.thumbnail);
-        dto.setName(product.productName);
-        dto.setDescription(product.description);
-        dto.setPrice(product.price);
-        dto.setStock(product.stock);
+      const { id } = req.params;
+      const findProduct = await ProductDAO.GetProductById(id);
+      if (findProduct) {
         return res.status(200).json({
           Response: {
-            Product: dto,
-          },
-        });
+            Product: findProduct
+          }
+        })
       }
-      return res.status(200).json({
+      return res.status(404).json({
         Response: {
           Message: "Product not found",
         },
@@ -59,12 +54,11 @@ class ProductGetHandlers {
       });
     }
   }
-  async getAllProductsHandler(_req, res) {
+  static async GetAllProductsHandler(_req, res) {
     try {
-      const products = await new MongoProductDAO().getAllProducts();
-      // acá hay que retornar un DTO
+      const products = await ProductDAO.GetAllProducts();
       return res.status(200).json({
-        products,
+          products,
       });
     } catch (error) {
       log.file.error(error.message);
@@ -78,15 +72,15 @@ class ProductGetHandlers {
   }
 }
 
-class ProductPutHandlers {
-  async updateProductHandler(req, res) {
-    const body = req.body;
+class PutProductHandler {
+  static async UpdateProductHandler(req, res) {
+    const update = req.body;
     const { id } = req.params;
     try {
       if (req.file) {
         body.thumbnail = `uploads/${req.file.filename}`;
       }
-      await new MongoProductDAO().updateProduct(id, body);
+      await ProductDAO.UpdateProduct(id, update);
       return res.status(201).json({
         Response: {
           Message: 'Product succesfully updated',
@@ -104,11 +98,11 @@ class ProductPutHandlers {
   }
 }
 
-class ProductDeleteHandlers {
-  async deleteProductHandler (req, res) {
+class DeleteProductHandler {
+  static async DeleteProductHandler (req, res) {
     const { id } = req.params;
     try {
-      await new MongoProductDAO().deleteProduct(id);
+      await ProductDAO.DeleteProduct(id);
       return res.status(200).json({
         Response: {
           Message: "Product successfully deleted",
@@ -127,10 +121,8 @@ class ProductDeleteHandlers {
 }
 
 module.exports = {
-  handlers: {
-    post: new ProductPostHandlers(),
-    get: new ProductGetHandlers(),
-    put: new ProductPutHandlers(),
-    delete: new ProductDeleteHandlers(),
-  },
+  get: GetProductHandler,
+  post: PostProductHandler,
+  put: PutProductHandler,
+  del: DeleteProductHandler,
 };
