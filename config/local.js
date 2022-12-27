@@ -3,6 +3,7 @@ require('../src/utils/dotenv.utils.js');
 module.exports = {
   server: {
     port: process.env.PORT,
+    url: process.env.URL,
   },
   mongodb: {
     uri: process.env.MONGO_URI,
