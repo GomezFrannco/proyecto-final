@@ -1,5 +1,4 @@
-const MongoProductDAO = require("../../services/products/dao.products");
-const ProductDTO = require("../../services/products/dto.products");
+const ProductDAO = require("../../services/products/dao.products");
 const { log } = require("../../utils/log4js.utils");
 
 class ProductPostHandlers {

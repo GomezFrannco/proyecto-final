@@ -1,5 +1,4 @@
-const MongoCartDAO = require("../../services/cart/dao.cart");
-const MongoUserDAO = require("../../services/users/dao.users");
+const UserDAO = require("../../services/users/dao.users");
 const { log } = require("../../utils/log4js.utils");
 
 class UserPostHandlers {
