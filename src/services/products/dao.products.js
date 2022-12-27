@@ -1,33 +1,30 @@
 const { ProductModel } = require("../../models/product.models");
+const ProductDTO = require("./dto.products");
 
-class MongoProductDAO { // Product CRUD with mongoDB
-  constructor() {
-    this.model = ProductModel; // Mongoose model
+class ProductDAO { // Product CRUD
+  static async CreateProduct(input) {
+    const product = await ProductModel.create(input);
+    const DTOProduct = new ProductDTO(product);
+    return DTOProduct.toJSON();
   }
-  async createProduct(input) {
-    return await this.model.create(input);
+  static async GetAllProducts() {
+    const products = await ProductModel.find();
+    const DTOProducts = products.map(product => new ProductDTO(product));
+    return DTOProducts.map(product => product.toJSON())
   }
-  async getAllProducts() {
-    return await this.model.find().select({
-      thumbnail: true,
-      productName: true,
-      price: true,
-      description: true,
-      category: true,
-      stock: true,
-    });
+  static async GetProductById(id) {
+    const product = await ProductModel.findById(id);
+    const DTOProduct = new ProductDTO(product);
+    return DTOProduct.toJSON();
   }
-  async getProductById(id) {
-    return await this.model.findById(id);
-  }
-  async updateProduct(id, input) {
-    return await this.model.findByIdAndUpdate(id, input, {
+  static async UpdateProduct(id, input) {
+    return await ProductModel.findByIdAndUpdate(id, input, {
       returnDocument: "after",
     });
   }
-  async deleteProduct(id) {
-    return await this.model.findByIdAndDelete(id);
+  static async DeleteProduct(id) {
+    return await ProductModel.findByIdAndDelete(id);
   }
 }
 
-module.exports = MongoProductDAO;
+module.exports = ProductDAO;
