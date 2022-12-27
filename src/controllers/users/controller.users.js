@@ -1,16 +1,15 @@
 const UserDAO = require("../../services/users/dao.users");
 const { log } = require("../../utils/log4js.utils");
 
-class UserPostHandlers {
-  async createUserHandler(req, res) {
-    const body = req.body;
+class PostUserHandler {
+  static async CreateUserHandler(req, res) {
+    const userData = req.body;
     try {
-      const user = await new MongoUserDAO().createUser(body);
-      // Le asignamos un carrito al usuario.
-      await new MongoCartDAO().createCart(user._id);
+      const newUser = await UserDAO.CreateUser(userData);
       return res.status(201).json({
         Response: {
           Message: "User successfully created!",
+          user: newUser,
         },
       });
     } catch (error) {
@@ -22,17 +21,14 @@ class UserPostHandlers {
         });
       }
       log.file.error(error?.message);
+      log.console.error(error?.message);
       return res.status(500).send(error);
     }
   }
-  async verifyUserHandler(req, res) {
-    try {
-    } catch (error) {}
-  }
 }
 
-class GetUsersHandlers {
-  async getCurrentUserHandler(_req, res) {
+class GetUserHandler {
+  static async GetCurrentUserHandler(_req, res) {
     return res.status(200).json({
       Response: res.locals.user
     })
@@ -40,8 +36,6 @@ class GetUsersHandlers {
 }
 
 module.exports = {
-  handlers: {
-    post: new UserPostHandlers(),
-    get: new GetUsersHandlers(),
-  },
+  get: GetUserHandler,
+  post: PostUserHandler,
 };
