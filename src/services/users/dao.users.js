@@ -1,23 +1,27 @@
 const { UserModel } = require("../../models/user.models");
+const UserDTO = require("./dto.users");
 
-class MongoUserDAO { // Users CRUD with MongoDB
-  constructor() {
-    this.model = UserModel; // Mongoose model
+class UserDAO { // User CRUD
+  static async CreateUser(input) {
+    const user = await UserModel.create(input);
+    const DTOUser = new UserDTO(user); 
+    return DTOUser.toJSON();
   }
-  async createUser(input) {
-    return await this.model.create(input);
+  static async GetAllUsers() {
+    const users = await UserModel.find();
+    const DTOUsers = users.map(user => new UserDTO(user));
+    return DTOUsers.map(user => user.toJSON()); 
   }
-  async getAllUsers() {
-    const users = await this.model.find();
-    return users; 
+  static async GetUserById(id) {
+    const user = await UserModel.findById(id);
+    const DTOUser = new UserDTO(user);
+    return DTOUser.toJSON();
   }
-  async getUser(id) {
-    const user = await this.model.findById(id);
-    return user;
-  }
-  async getUserByEmail(email) {
-    return await this.model.findOne({ email })
+  static async GetUserByEmail(email) {
+    const user = await UserModel.findOne({ email });
+    const DTOUser = new UserDTO(user);
+    return DTOUser.toJSON();
   }
 }
 
-module.exports = MongoUserDAO;
+module.exports = UserDAO;
