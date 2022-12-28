@@ -1,6 +1,6 @@
 const CartModel = require("../../models/cart.models");
 
-class MongoCartDAO {// Cart CRUD with mongoDB
+class CartDAO {// Cart CRUD with mongoDB
   constructor() {
     this.model = CartModel; // Mongoose model
   }
@@ -25,4 +25,4 @@ class MongoCartDAO {// Cart CRUD with mongoDB
   }
 }
 
-module.exports = MongoCartDAO;
+module.exports = CartDAO;
