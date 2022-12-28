@@ -1,6 +1,6 @@
 const { get } = require("lodash");
-const MongoSessionDAO = require("../../../../src/services/auth/dao.auth");
-const MongoUserDAO = require("../../../../src/services/users/dao.users");
+const MongoSessionDAO = require("../../services/auth/dao.auth");
+const MongoUserDAO = require("../../services/auth/dao.auth");
 const { verifyJwt } = require("../../utils/jwt.utils");
 const { log } = require("../../utils/log4js.utils");
 

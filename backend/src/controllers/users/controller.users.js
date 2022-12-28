@@ -1,4 +1,4 @@
-const UserDAO = require("../../../../src/services/users/dao.users");
+const UserDAO = require("../../services/users/dao.users");
 const { log } = require("../../utils/log4js.utils");
 
 class PostUserHandler {

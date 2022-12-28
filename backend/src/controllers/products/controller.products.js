@@ -1,4 +1,4 @@
-const ProductDAO = require("../../../../src/services/products/dao.products");
+const ProductDAO = require("../../services/products/dao.products");
 const { log } = require("../../utils/log4js.utils");
 
 class PostProductHandler {
