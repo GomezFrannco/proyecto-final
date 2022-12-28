@@ -13,8 +13,8 @@ const { log } = require("../../utils/log4js.utils");
 //   }
 // }
 
-class CartGetHandlers {
-  async getCartByIdHandler(req, res) {
+class GetCartHandler {
+  static async getCartByIdHandler(req, res) {
     const { id } = req.params;
     try {
       const cart = await new CartDAO().getCartByUserId(id);
@@ -35,8 +35,8 @@ class CartGetHandlers {
   }
 }
 
-class CartPutHandlers {
-  async updateCartByIdHandler(req, res) {
+class PutCartHandler {
+  static async updateCartByIdHandler(req, res) {
     const { id } = req.params;
     const body = req.body;
     try {
@@ -57,9 +57,6 @@ class CartPutHandlers {
 }
 
 module.exports = {
-  handlers: {
-    // post: new CartPostHandlers(),
-    get: new CartGetHandlers(),
-    put: new CartPutHandlers(),
-  },
+  get: GetCartHandler,
+  put: PutCartHandler,
 };

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { handlers } = require("../controllers/cart/controller.cart");
+const { get, put } = require("../controllers/cart/controller.cart");
 
 const router = Router();
 
@@ -7,7 +7,7 @@ const router = Router();
 //   .post(handlers.post.createCartHandler)
 
 router.route("/api/carts/:id")
-  .get(handlers.get.getCartByIdHandler)
-  .put(handlers.put.updateCartByIdHandler)
+  .get(get.getCartByIdHandler)
+  .put(put.updateCartByIdHandler)
 
 module.exports = router;
