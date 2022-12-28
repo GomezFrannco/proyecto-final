@@ -13,6 +13,7 @@ class GetCartHandler {
       });
     } catch (error) {
       log.file.error(error.message)
+      log.console.error(error.message)
       return res.status(500).json({
         Error: {
           Message: error.message,
@@ -34,6 +35,8 @@ class PutCartHandler {
         },
       });
     } catch (error) {
+      log.file.error(error.message)
+      log.console.error(error.message)
       return res.status(500).json({
         Error: {
           Message: error.message,
