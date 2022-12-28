@@ -1,11 +1,8 @@
 const CartModel = require("../../models/cart.models");
 
 class CartDAO {// Cart CRUD with mongoDB
-  constructor() {
-    this.model = CartModel; // Mongoose model
-  }
   async createCart(id) {
-    return await this.model.create({ user: id });
+    return await CartModel.create({ user: id });
   }
   async addProductToCart(id, input) {
     const cart = await this.getCartByUserId(id);
@@ -15,13 +12,13 @@ class CartDAO {// Cart CRUD with mongoDB
     return await cart.products.push(input);
   }
   async getCartByUserId(id) {
-    return await this.model.findOne({ user: id });
+    return await CartModel.findOne({ user: id });
   }
   async getCartById(id) {
-    return await this.model.findById(id);
+    return await CartModel.findById(id);
   }
   async removeProductFromCart(id) {
-    return await this.model.products.pull(id);
+    return await CartModel.products.pull(id);
   }
 }
 
