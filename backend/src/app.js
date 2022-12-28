@@ -2,7 +2,6 @@ const express = require("express");
 const config = require("config");
 const { log } = require("./utils/log4js.utils");
 const apiRoutes = require('./routes/index.routes.js');
-const clientRoutes = require("../client/routes/index.routes")
 const deserializeUser = require("./middlewares/deserialize.middlewares");
 
 class App {
@@ -15,8 +14,6 @@ class App {
   }
   settings() {
     this.app.set("port", this.port);
-    this.app.set("views", "./client/views");
-    this.app.set("view engine", "ejs");
   }
   middlewares() {
     this.app.use(express.json());
@@ -26,7 +23,6 @@ class App {
   }
   routes() {
     this.app.use(apiRoutes);
-    this.app.use(clientRoutes)
   }
   listen() {
     this.app.listen(this.app.get("port"), () => {
