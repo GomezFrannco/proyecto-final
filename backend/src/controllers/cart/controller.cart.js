@@ -17,7 +17,7 @@ class GetCartHandler {
   static async GetCartByIdHandler(req, res) {
     const { id } = req.params;
     try {
-      const cart = await CartDAO().getCartByUserId(id);
+      const cart = await CartDAO.getCartByUserId(id);
       log.console.debug(cart);
       res.status(200).json({
         Response: {
@@ -40,7 +40,7 @@ class PutCartHandler {
     const { id } = req.params;
     const body = req.body;
     try {
-      await CartDAO().addProductToCart(id, body);
+      await CartDAO.addProductToCart(id, body);
       return res.status(200).json({
         Response: {
           Message: "Product successfully added to cart",
