@@ -5,11 +5,12 @@ class CartDAO { // Cart CRUD
     return await CartModel.create({ user: id, items: [product]});
   }
   static async AddProductToCart(id, input) {
-    const cart = await this.getCartByUserId(id);
+    const cart = await this.GetCartByUserId(id);
     if (!cart) {
       throw new Error("Unavailable cart");
     }
-    return await cart.products.push(input);
+    await cart.items.push(input)
+    return cart.save();
   }
   static async GetCartByUserId(id) {
     return await CartModel.findOne({ user: id });
