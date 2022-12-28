@@ -1,8 +1,8 @@
 const CartModel = require("../../models/cart.models");
 
 class CartDAO { // Cart CRUD
-  static async CreateCart(id, product) {
-    return await CartModel.create({ user: id, items: [product]});
+  static async CreateCart(id) {
+    return await CartModel.create({ user: id, items: []});
   }
   static async AddProductToCart(id, input) {
     const cart = await this.GetCartByUserId(id);
