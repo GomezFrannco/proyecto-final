@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 .product__card {
   box-shadow: 0 0 2px 0 rgba(107, 114, 128, 0.5);
   transition: 0.3s ease all;
-}
-.product__card:hover {
-  box-shadow: 0 5px 20px 0 rgba(107, 114, 128, 0.5);
-  transform: scale(1.06);
+  &:hover {
+    box-shadow: 0 5px 20px 0 rgba(107, 114, 128, 0.5);
+    transform: scale(1.06);
+  }
+  .card__info {
+    .info__price, .info__category, .info__name {
+      font-family: 'Inter', sans-serif;
+    }
+  }
 }
